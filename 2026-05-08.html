@@ -78,6 +78,36 @@
   .how-to-content ul, .how-to-content ol { padding-left: 22px; line-height: 1.7; }
   .how-to-content li { margin: 6px 0; }
   .how-to-content p { line-height: 1.6; margin: 8px 0; }
+
+  /* Pure-CSS tabs (no JS). Three hidden radios drive three tab panels. */
+  .tabs { margin: 24px 0; }
+  .tabs input[type="radio"] { display: none; }
+  .tab-nav { display: flex; gap: 4px; border-bottom: 2px solid #1f2630; }
+  .tab-nav label {
+    padding: 12px 20px; cursor: pointer;
+    color: #8b949e; font-weight: 600; font-size: 15px;
+    border: 2px solid transparent; border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    transition: color 0.15s, background 0.15s;
+  }
+  .tab-nav label:hover { color: #e6edf3; background: #11161d; }
+  .tab-panel { display: none; padding: 24px 0; }
+  /* Wire radio:checked → matching panel visible + matching label active */
+  #tab-breakouts:checked ~ .tab-panels #panel-breakouts,
+  #tab-ranges:checked ~ .tab-panels #panel-ranges,
+  #tab-decade:checked ~ .tab-panels #panel-decade { display: block; }
+  #tab-breakouts:checked ~ .tab-nav label[for="tab-breakouts"],
+  #tab-ranges:checked ~ .tab-nav label[for="tab-ranges"],
+  #tab-decade:checked ~ .tab-nav label[for="tab-decade"] {
+    color: #00d68f; border-color: #1f2630;
+    border-bottom: 2px solid #0a0e14; margin-bottom: -2px;
+    background: #11161d;
+  }
+  .tab-counter {
+    display: inline-block; margin-left: 6px; padding: 2px 8px;
+    background: #1f2630; color: #e6edf3;
+    border-radius: 10px; font-size: 12px; font-family: monospace;
+  }
 </style>
 </head>
 <body>
@@ -130,13 +160,26 @@
     </div>
   </details>
 
-  <h2>🔍 Today's qualified breakouts</h2>
-  <p class="muted">Filters: min score 30 · min volume 1.5× · above 50-DMA · Nifty 500 universe ·
-     <span style="color:#ffaa00">Don't know what these columns mean? Click "How to read this report" above ☝️</span></p>
-  <table class='breakouts-table'><thead><tr><th>#</th><th>Ticker</th><th>Sector</th><th>LTP</th><th>Chg%</th><th>Levels</th><th>Lvl ₹</th><th>Vol×</th><th>CIR%</th><th>50d</th><th>200d</th><th>Score</th></tr></thead><tbody><tr><td>1</td><td><strong>APOLLOHOSP</strong></td><td class='muted'>Healthcare</td><td>₹8,097.00</td><td style='color:#00d68f'>+3.32%</td><td>S C D</td><td>8089</td><td>2.6×</td><td>94%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>2</td><td><strong>THERMAX</strong></td><td class='muted'>Capital Goods</td><td>₹4,677.50</td><td style='color:#00d68f'>+11.84%</td><td>S C</td><td>4305</td><td>15.0×</td><td>82%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>3</td><td><strong>SONATSOFTW</strong></td><td class='muted'>Information Technology</td><td>₹297.15</td><td style='color:#00d68f'>+9.75%</td><td>H S</td><td>291</td><td>18.0×</td><td>68%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>4</td><td><strong>FSL</strong></td><td class='muted'>Services</td><td>₹274.26</td><td style='color:#00d68f'>+16.62%</td><td>H S</td><td>255</td><td>12.3×</td><td>86%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>5</td><td><strong>FINCABLES</strong></td><td class='muted'>Capital Goods</td><td>₹1,141.30</td><td style='color:#00d68f'>+4.91%</td><td>S C</td><td>1099</td><td>3.3×</td><td>60%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>86</td></tr><tr><td>6</td><td><strong>ACE</strong></td><td class='muted'>Capital Goods</td><td>₹947.25</td><td style='color:#00d68f'>+4.60%</td><td>H</td><td>928</td><td>12.2×</td><td>84%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>7</td><td><strong>NBCC</strong></td><td class='muted'>Construction</td><td>₹100.64</td><td style='color:#00d68f'>+3.91%</td><td>H</td><td>98</td><td>4.8×</td><td>75%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>8</td><td><strong>KALYANKJIL</strong></td><td class='muted'>Consumer Durables</td><td>₹424.55</td><td style='color:#00d68f'>+3.26%</td><td>H</td><td>415</td><td>5.2×</td><td>80%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>9</td><td><strong>SCI</strong></td><td class='muted'>Services</td><td>₹339.05</td><td style='color:#00d68f'>+6.09%</td><td>S C</td><td>329</td><td>2.0×</td><td>77%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>61</td></tr><tr><td>10</td><td><strong>NUVAMA</strong></td><td class='muted'>Financial Services</td><td>₹1,631.50</td><td style='color:#00d68f'>+10.65%</td><td>C</td><td>1622</td><td>14.1×</td><td>91%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>60</td></tr><tr><td>11</td><td><strong>BERGEPAINT</strong></td><td class='muted'>Consumer Durables</td><td>₹515.75</td><td style='color:#00d68f'>+5.63%</td><td>S</td><td>490</td><td>9.4×</td><td>82%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>60</td></tr><tr><td>12</td><td><strong>HEXT</strong></td><td class='muted'>Information Technology</td><td>₹485.70</td><td style='color:#00d68f'>+5.46%</td><td>H</td><td>467</td><td>3.4×</td><td>93%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>58</td></tr><tr><td>13</td><td><strong>OLECTRA</strong></td><td class='muted'>Automobile and Auto Components</td><td>₹1,340.70</td><td style='color:#00d68f'>+5.58%</td><td>S</td><td>1307</td><td>3.4×</td><td>60%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>44</td></tr><tr><td>14</td><td><strong>JBMA</strong></td><td class='muted'>Automobile and Auto Components</td><td>₹649.90</td><td style='color:#00d68f'>+4.12%</td><td>H</td><td>629</td><td>2.2×</td><td>71%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>43</td></tr><tr><td>15</td><td><strong>INTELLECT</strong></td><td class='muted'>Information Technology</td><td>₹806.80</td><td style='color:#00d68f'>+3.15%</td><td>S</td><td>789</td><td>6.8×</td><td>53%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>40</td></tr></tbody></table>
+  <div class="tabs">
+    <input type="radio" name="tab" id="tab-breakouts" checked>
+    <input type="radio" name="tab" id="tab-ranges">
+    <input type="radio" name="tab" id="tab-decade">
 
-  <h2 style="margin-top: 40px;">⭐ Featured (top 5 by score)</h2>
-  
+    <div class="tab-nav">
+      <label for="tab-breakouts">🔍 Today's Breakouts<span class="tab-counter">23</span></label>
+      <label for="tab-ranges">📐 Active Ranges<span class="tab-counter">304</span></label>
+      <label for="tab-decade">🚀 Decade Breakouts<span class="tab-counter">1</span></label>
+    </div>
+
+    <div class="tab-panels">
+      <div class="tab-panel" id="panel-breakouts">
+        <h2 style="border:none; padding:0;">🔍 Today's qualified breakouts</h2>
+        <p class="muted">Filters: min score 30 · min volume 1.5× · above 50-DMA · Nifty 500 universe ·
+           <span style="color:#ffaa00">Don't know what these columns mean? Click "How to read this report" above ☝️</span></p>
+        <table class='breakouts-table'><thead><tr><th>#</th><th>Ticker</th><th>Sector</th><th>LTP</th><th>Chg%</th><th>Levels</th><th>Lvl ₹</th><th>Vol×</th><th>CIR%</th><th>50d</th><th>200d</th><th>Score</th></tr></thead><tbody><tr><td>1</td><td><strong>APOLLOHOSP</strong></td><td class='muted'>Healthcare</td><td>₹8,097.00</td><td style='color:#00d68f'>+3.32%</td><td>S C D</td><td>8089</td><td>2.6×</td><td>94%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>2</td><td><strong>THERMAX</strong></td><td class='muted'>Capital Goods</td><td>₹4,677.50</td><td style='color:#00d68f'>+11.84%</td><td>S C</td><td>4305</td><td>15.0×</td><td>82%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>3</td><td><strong>SONATSOFTW</strong></td><td class='muted'>Information Technology</td><td>₹297.15</td><td style='color:#00d68f'>+9.75%</td><td>H S</td><td>291</td><td>18.0×</td><td>68%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>4</td><td><strong>FSL</strong></td><td class='muted'>Services</td><td>₹274.26</td><td style='color:#00d68f'>+16.62%</td><td>H S</td><td>255</td><td>12.3×</td><td>86%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#00d68f; font-weight:bold'>100</td></tr><tr><td>5</td><td><strong>FINCABLES</strong></td><td class='muted'>Capital Goods</td><td>₹1,141.30</td><td style='color:#00d68f'>+4.91%</td><td>S C</td><td>1099</td><td>3.3×</td><td>60%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f; font-weight:bold'>86</td></tr><tr><td>6</td><td><strong>ACE</strong></td><td class='muted'>Capital Goods</td><td>₹947.25</td><td style='color:#00d68f'>+4.60%</td><td>H</td><td>928</td><td>12.2×</td><td>84%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>7</td><td><strong>NBCC</strong></td><td class='muted'>Construction</td><td>₹100.64</td><td style='color:#00d68f'>+3.91%</td><td>H</td><td>98</td><td>4.8×</td><td>75%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>8</td><td><strong>KALYANKJIL</strong></td><td class='muted'>Consumer Durables</td><td>₹424.55</td><td style='color:#00d68f'>+3.26%</td><td>H</td><td>415</td><td>5.2×</td><td>80%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>68</td></tr><tr><td>9</td><td><strong>SCI</strong></td><td class='muted'>Services</td><td>₹339.05</td><td style='color:#00d68f'>+6.09%</td><td>S C</td><td>329</td><td>2.0×</td><td>77%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>61</td></tr><tr><td>10</td><td><strong>NUVAMA</strong></td><td class='muted'>Financial Services</td><td>₹1,631.50</td><td style='color:#00d68f'>+10.65%</td><td>C</td><td>1622</td><td>14.1×</td><td>91%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>60</td></tr><tr><td>11</td><td><strong>BERGEPAINT</strong></td><td class='muted'>Consumer Durables</td><td>₹515.75</td><td style='color:#00d68f'>+5.63%</td><td>S</td><td>490</td><td>9.4×</td><td>82%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>60</td></tr><tr><td>12</td><td><strong>HEXT</strong></td><td class='muted'>Information Technology</td><td>₹485.70</td><td style='color:#00d68f'>+5.46%</td><td>H</td><td>467</td><td>3.4×</td><td>93%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>58</td></tr><tr><td>13</td><td><strong>OLECTRA</strong></td><td class='muted'>Automobile and Auto Components</td><td>₹1,340.70</td><td style='color:#00d68f'>+5.58%</td><td>S</td><td>1307</td><td>3.4×</td><td>60%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>44</td></tr><tr><td>14</td><td><strong>JBMA</strong></td><td class='muted'>Automobile and Auto Components</td><td>₹649.90</td><td style='color:#00d68f'>+4.12%</td><td>H</td><td>629</td><td>2.2×</td><td>71%</td><td style='color:#00d68f'>✓</td><td style='color:#00d68f'>✓</td><td style='color:#ffaa00; font-weight:bold'>43</td></tr><tr><td>15</td><td><strong>INTELLECT</strong></td><td class='muted'>Information Technology</td><td>₹806.80</td><td style='color:#00d68f'>+3.15%</td><td>S</td><td>789</td><td>6.8×</td><td>53%</td><td style='color:#00d68f'>✓</td><td style='color:#ff3d71'>✗</td><td style='color:#ffaa00; font-weight:bold'>40</td></tr></tbody></table>
+
+        <h2 style="margin-top: 40px;">⭐ Featured (top 5 by score)</h2>
+        
 <div class="featured-stock">
   <div class="featured-header">
     <div class="featured-ticker">
@@ -302,6 +345,24 @@
   
 </div>
 
+      </div>
+
+      <div class="tab-panel" id="panel-ranges">
+        <h2 style="border:none; padding:0;">📐 Active horizontal ranges</h2>
+        <p class="muted">Rectangle patterns lasting ≥9 months. Companion to breakouts — same data, opposite lens.
+           ★ structure · ★★ +volume confirms · ★★★ +9-month spread · ★★★★ +role reversal.</p>
+        <table class='breakouts-table'><thead><tr><th>#</th><th>Ticker</th><th>Sector</th><th>LTP</th><th>Chg%</th><th>Range</th><th>W%</th><th>★</th><th>Dur</th><th>Maturity</th><th>Status</th><th>Flags</th></tr></thead><tbody><tr><td>1</td><td><strong>SHREECEM</strong></td><td class='muted'>Construction Materials</td><td>₹25,435.00</td><td style='color:#ff3d71'>-0.63%</td><td>₹24,371 – ₹27,664</td><td>13%</td><td style='color:#ffaa00'>★★★★</td><td>1795d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>💰↻📊⚠️</td></tr><tr><td>2</td><td><strong>INDUSINDBK</strong></td><td class='muted'>Financial Services</td><td>₹950.75</td><td style='color:#00d68f'>+0.40%</td><td>₹821 – ₹943</td><td>13%</td><td style='color:#ffaa00'>★★★★</td><td>1787d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊</td></tr><tr><td>3</td><td><strong>HDFCBANK</strong></td><td class='muted'>Financial Services</td><td>₹780.85</td><td style='color:#ff3d71'>-1.91%</td><td>₹730 – ₹828</td><td>13%</td><td style='color:#ffaa00'>★★★★</td><td>1784d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊</td></tr><tr><td>4</td><td><strong>GODREJCP</strong></td><td class='muted'>Fast Moving Consumer Goods</td><td>₹1,042.40</td><td style='color:#00d68f'>+0.56%</td><td>₹968 – ₹1,238</td><td>26%</td><td style='color:#ffaa00'>★★★★</td><td>1777d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊⚠️</td></tr><tr><td>5</td><td><strong>SUMICHEM</strong></td><td class='muted'>Chemicals</td><td>₹485.55</td><td style='color:#ff3d71'>-2.68%</td><td>₹392 – ₹479</td><td>18%</td><td style='color:#ffaa00'>★★★★</td><td>1757d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊</td></tr><tr><td>6</td><td><strong>COFORGE</strong></td><td class='muted'>Information Technology</td><td>₹1,368.10</td><td style='color:#00d68f'>+6.44%</td><td>₹863 – ₹1,307</td><td>32%</td><td style='color:#ffaa00'>★★★★</td><td>1681d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>💰↻📊⚠️</td></tr><tr><td>7</td><td><strong>FLUOROCHEM</strong></td><td class='muted'>Chemicals</td><td>₹3,769.10</td><td style='color:#ff3d71'>-0.77%</td><td>₹2,959 – ₹3,753</td><td>21%</td><td style='color:#ffaa00'>★★★★</td><td>1561d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊⚠️</td></tr><tr><td>8</td><td><strong>NUVOCO</strong></td><td class='muted'>Construction Materials</td><td>₹329.75</td><td style='color:#ff3d71'>-1.99%</td><td>₹318 – ₹367</td><td>15%</td><td style='color:#ffaa00'>★★★★</td><td>1533d</td><td class='muted'>Major</td><td style='color:#ff3d71'>BO down (3d)</td><td>↻📊</td></tr><tr><td>9</td><td><strong>SAMMAANCAP</strong></td><td class='muted'>Financial Services</td><td>₹148.78</td><td style='color:#ff3d71'>-1.98%</td><td>₹143 – ₹162</td><td>13%</td><td style='color:#ffaa00'>★★★★</td><td>1514d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊⚠️</td></tr><tr><td>10</td><td><strong>YESBANK</strong></td><td class='muted'>Financial Services</td><td>₹22.94</td><td style='color:#00d68f'>+1.91%</td><td>₹16 – ₹23</td><td>28%</td><td style='color:#ffaa00'>★★★★</td><td>1312d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>↻📊⚠️</td></tr><tr><td>11</td><td><strong>ATUL</strong></td><td class='muted'>Chemicals</td><td>₹7,088.50</td><td style='color:#00d68f'>+0.78%</td><td>₹6,151 – ₹7,204</td><td>15%</td><td style='color:#ffaa00'>★★★★</td><td>1275d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>💰↻📊⚠️</td></tr><tr><td>12</td><td><strong>BRITANNIA</strong></td><td class='muted'>Fast Moving Consumer Goods</td><td>₹5,520.00</td><td style='color:#ff3d71'>-5.06%</td><td>₹4,407 – ₹5,761</td><td>25%</td><td style='color:#ffaa00'>★★★★</td><td>1220d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>💰↻📊</td></tr><tr><td>13</td><td><strong>FINCABLES</strong></td><td class='muted'>Capital Goods</td><td>₹1,141.30</td><td style='color:#00d68f'>+4.91%</td><td>₹771 – ₹996</td><td>20%</td><td style='color:#ffaa00'>★★★★</td><td>1158d</td><td class='muted'>Major</td><td style='color:#00d68f'>BO up (0d)</td><td>💰↻📊⚠️</td></tr><tr><td>14</td><td><strong>MEDANTA</strong></td><td class='muted'>Healthcare</td><td>₹1,200.60</td><td style='color:#ff3d71'>-0.52%</td><td>₹1,043 – ₹1,209</td><td>14%</td><td style='color:#ffaa00'>★★★★</td><td>868d</td><td class='muted'>Major</td><td style='color:#e6edf3'>In-Range</td><td>💰↻📊</td></tr><tr><td>15</td><td><strong>HCLTECH</strong></td><td class='muted'>Information Technology</td><td>₹1,198.40</td><td style='color:#00d68f'>+1.27%</td><td>₹1,288 – ₹1,614</td><td>27%</td><td style='color:#ffaa00'>★★★★</td><td>854d</td><td class='muted'>Major</td><td style='color:#ff3d71'>BO down (0d)</td><td>💰↻📊⚠️</td></tr></tbody></table>
+      </div>
+
+      <div class="tab-panel" id="panel-decade">
+        <h2 style="border:none; padding:0;">🚀 Decade Breakouts watchlist</h2>
+        <p class="muted">Stocks within <strong>10%</strong> of a high set <strong>>10 years ago</strong>
+           and untouched (not even intraday) for the entire window. Pre-breakout shortlist — catches the setup
+           <em>before</em> the level breaks, not after.</p>
+        <table class='breakouts-table'><thead><tr><th>#</th><th>Ticker</th><th>Sector</th><th>LTP</th><th>Chg%</th><th>H (old)</th><th>Set on</th><th>Age</th><th>Gap</th><th>Status</th></tr></thead><tbody><tr><td>1</td><td><strong>SAIL</strong></td><td class='muted'>Metals & Mining</td><td>₹184.88</td><td style='color:#ff3d71'>-1.28%</td><td>₹201.74</td><td class='muted'>2007-12-06</td><td>18.4y</td><td style='color:#e6edf3; font-weight:bold'>+8.4%</td><td><span class='muted'>📍 Approaching</span></td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
 
   <div class="disclaimer">
     <p><strong>READ THIS BEFORE ACTING ON ANYTHING IN THIS REPORT.</strong></p>
@@ -319,7 +380,7 @@
     and may look lower than non-adjusted charts. The "remaining X% of volume is anonymous"
     label on each deals panel is non-negotiable — NSE does not publish per-stock FII flow at
     retail level, and we will never invent numbers we cannot see.</p>
-    <p class="muted" style="margin-top: 12px;">Generated 2026-05-12 19:08:45 ·
+    <p class="muted" style="margin-top: 12px;">Generated 2026-05-13 11:03:40 ·
     Breakout Lab v1 · github.com/aditya/breakout-lab (private)</p>
   </div>
 
