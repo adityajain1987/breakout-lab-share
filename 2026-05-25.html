@@ -149,9 +149,8 @@
 
       <h3>The featured stock cards — three things to read</h3>
       <ol>
-        <li><strong>The price chart (left)</strong> shows recent action. The horizontal lines are POC (orange = where most volume traded), VAH/VAL (green dashed = the 70%-volume range around POC). When price breaks above POC, often runs further; when it falls below, often retests POC as new resistance.</li>
-        <li><strong>Volume profile lines on the chart</strong> — orange solid <strong>POC</strong> (Point of Control, the single price where most shares changed hands), green dashed <strong>VAH/VAL</strong> (the band where ~70% of volume happened). When price approaches POC from above, often acts as support; from below, often acts as resistance.</li>
-        <li>The full sideways volume-profile <em>histogram</em> lives in the Streamlit dashboard — open it locally with <code>streamlit run dashboard/app.py</code> for deeper exploration.</li>
+        <li><strong>The price chart (left)</strong> shows recent candles. The horizontal lines mark POC (orange = where most volume traded), VAH/VAL (green dashed = the 70%-volume range around POC). When price breaks above POC it often runs further; when it falls below, POC often becomes new resistance on the retest.</li>
+        <li><strong>The volume-by-price bars (right side)</strong> show <em>how much trading happened at each price</em> — long bar = a price the stock spent a lot of volume at (strong support/resistance), short bar = price it passed through quickly. <span style="color:#ffaa00">Orange bar = POC</span> (the single most-traded price), <span style="color:#00d68f">green bars = the value area</span> (~70% of volume), grey = outside. Line the bars up with the candles on the left to see which levels matter.</li>
         <li><strong>The yellow "Disclosed" banner</strong> is the honest deals label. We only count the trades NSE publicly disclosed (bulk + block deals > size threshold). Most of every stock's volume is anonymous — no one knows who bought it. Anyone claiming to know per-stock FII flow is making it up.</li>
       </ol>
 
@@ -676,7 +675,7 @@
     and may look lower than non-adjusted charts. The "remaining X% of volume is anonymous"
     label on each deals panel is non-negotiable — NSE does not publish per-stock FII flow at
     retail level, and we will never invent numbers we cannot see.</p>
-    <p class="muted" style="margin-top: 12px;">Generated 2026-06-04 15:55:18 ·
+    <p class="muted" style="margin-top: 12px;">Generated 2026-06-04 15:55:58 ·
     Breakout Lab v1 · github.com/aditya/breakout-lab (private)</p>
   </div>
 
